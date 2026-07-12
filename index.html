@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alexandru Rusu · Mechatronics Engineering</title>
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -58,6 +58,32 @@ tailwind.config = {
     content: ''; position: absolute; top: -1px; left: -1px; width: 14px; height: 14px;
     border-top: 2px solid #171B19; border-left: 2px solid #171B19;
   }
+
+  /* Gallery thumbnails */
+  .gallery-thumb { position: relative; display: block; overflow: hidden; border: 1px solid #C9CFCB; cursor: zoom-in; }
+  .gallery-thumb img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 0.35s ease; }
+  .gallery-thumb:hover img { transform: scale(1.06); }
+  .gallery-thumb::after {
+    content: ''; position: absolute; inset: 0; background: #171B19; opacity: 0; transition: opacity 0.25s ease;
+  }
+  .gallery-thumb:hover::after { opacity: 0.15; }
+  .gallery-thumb .zoom-tag {
+    position: absolute; bottom: 8px; right: 8px; background: #171B19; color: #E9ECEA;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 7px; opacity: 0; transform: translateY(4px); transition: all 0.25s ease;
+  }
+  .gallery-thumb:hover .zoom-tag { opacity: 1; transform: translateY(0); }
+
+  /* Lightbox */
+  #lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(23,27,25,0.96); display: flex; align-items: center; justify-content: center; }
+  #lightbox[hidden] { display: none; }
+  #lightbox img { max-width: min(90vw, 1100px); max-height: 78vh; object-fit: contain; border: 1px solid #3a3f3c; background: #0E0F0E; }
+  #lightbox .lightbox-caption { color: #E9ECEA; }
+  #lightbox .lightbox-arrow, #lightbox .lightbox-close {
+    color: #E9ECEA; border: 1px solid rgba(233,236,234,0.35); background: rgba(255,255,255,0.04);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  #lightbox .lightbox-arrow:hover, #lightbox .lightbox-close:hover { border-color: #3BB98A; color: #3BB98A; }
 </style>
 </head>
 <body class="bg-paper text-ink antialiased">
@@ -207,15 +233,35 @@ tailwind.config = {
           detect high-speed micro-blinks.
         </p>
 
-        <!-- Media placeholders — swap the divs below for <img> tags when photos are ready -->
-        <div class="grid sm:grid-cols-2 gap-4 mt-7">
+        <div class="grid sm:grid-cols-3 gap-4 mt-7">
+          <div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 0)">
+              <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">
+              <span class="zoom-tag">Expand</span>
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">CAD render · light bar assembly</p>
+          </div>
+          <div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
+              <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">
+              <span class="zoom-tag">Expand</span>
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">KiCad PCB render</p>
+          </div>
+          <!-- pending: swap for <img src="assets/blinkrite-breadboard.jpg"> -->
           <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
             <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
             <span class="font-mono text-xs tracking-wider mt-1">Breadboard prototype</span>
           </div>
+          <!-- pending: swap for <img src="assets/blinkrite-pcb-halfway.jpg"> -->
           <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
-            <span class="font-mono text-xs tracking-wider text-ink/60">[ RENDER ]</span>
-            <span class="font-mono text-xs tracking-wider mt-1">KiCad PCB render</span>
+            <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
+            <span class="font-mono text-xs tracking-wider mt-1">PCB assembly, in progress</span>
+          </div>
+          <!-- pending: swap for <img src="assets/blinkrite-lamp-frame.jpg"> -->
+          <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
+            <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
+            <span class="font-mono text-xs tracking-wider mt-1">Lamp frame</span>
           </div>
         </div>
       </article>
@@ -279,14 +325,20 @@ tailwind.config = {
 
         <div class="grid sm:grid-cols-5 gap-4 mt-7 items-start">
           <div class="sm:col-span-3">
-            <video controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full aspect-video object-cover border border-line bg-ink">
+            <video id="plotter-video" controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full aspect-video object-cover border border-line bg-ink">
               <source src="assets/plotter-demo.mp4" type="video/mp4">
               Your browser can't play this video.
             </video>
-            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Demo · cue card scan &amp; shape routines</p>
+            <div class="flex items-center justify-between mt-2">
+              <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50">Demo · cue card scan &amp; shape routines</p>
+              <button type="button" onclick="const v=document.getElementById('plotter-video'); v.playbackRate = v.playbackRate === 2 ? 1 : 2; this.textContent = v.playbackRate + 'x';" class="font-mono text-[0.68rem] tracking-wider uppercase border border-line px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">1x</button>
+            </div>
           </div>
           <div class="sm:col-span-2">
-            <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry" class="w-full border border-line">
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('plotter', 0)">
+              <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry">
+              <span class="zoom-tag">Expand</span>
+            </button>
             <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Build in progress · gantry &amp; paper feed</p>
           </div>
         </div>
@@ -352,6 +404,81 @@ tailwind.config = {
     <p class="font-mono text-[0.65rem] tracking-wider text-silk/50">ALEXANDRU RUSU · MECHATRONICS ENGINEERING · UNIVERSITY OF WATERLOO</p>
   </div>
 </footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" onclick="closeLightbox()" aria-label="Close" class="lightbox-close absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="w-5 h-5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <button type="button" id="lightbox-prev" onclick="navLightbox(-1)" aria-label="Previous image" class="lightbox-arrow absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button type="button" id="lightbox-next" onclick="navLightbox(1)" aria-label="Next image" class="lightbox-arrow absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+  <div class="flex flex-col items-center gap-3 px-4" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption font-mono text-xs tracking-wider uppercase text-center">
+      <span id="lightbox-caption-text"></span>
+      <span id="lightbox-counter" class="text-silk/50 ml-2"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const galleries = {
+    blinkrite: [
+      { src: 'assets/blinkrite-lightbar-render.png', caption: 'CAD render · light bar assembly' },
+      { src: 'assets/blinkrite-pcb-render.png', caption: 'KiCad PCB render' },
+    ],
+    plotter: [
+      { src: 'assets/plotter-build.jpg', caption: 'Build in progress · gantry & paper feed' },
+    ],
+  };
+  let currentGallery = null;
+  let currentIndex = 0;
+
+  function updateLightboxImage() {
+    const items = galleries[currentGallery];
+    const item = items[currentIndex];
+    document.getElementById('lightbox-img').src = item.src;
+    document.getElementById('lightbox-img').alt = item.caption;
+    document.getElementById('lightbox-caption-text').textContent = item.caption;
+    const multi = items.length > 1;
+    document.getElementById('lightbox-counter').textContent = multi ? `(${currentIndex + 1} / ${items.length})` : '';
+    document.getElementById('lightbox-prev').classList.toggle('hidden', !multi);
+    document.getElementById('lightbox-next').classList.toggle('hidden', !multi);
+  }
+
+  function openLightbox(group, index) {
+    currentGallery = group;
+    currentIndex = index;
+    updateLightboxImage();
+    document.getElementById('lightbox').hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  function navLightbox(delta) {
+    const items = galleries[currentGallery];
+    currentIndex = (currentIndex + delta + items.length) % items.length;
+    updateLightboxImage();
+  }
+
+  document.getElementById('lightbox').addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (lb.hidden) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+</script>
 
 </body>
 </html>
