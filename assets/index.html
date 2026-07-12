@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexandru Rusu — Mechatronics Engineering</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        paper: '#F3F4F2',
+        ink: '#171B19',
+        mask: '#0E6B4A',   /* solder-mask green */
+        copper: '#A9682F',
+        line: '#C9CFCB',
+        silk: '#E9ECEA',
+      },
+      fontFamily: {
+        display: ['Archivo', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'monospace'],
+      },
+    }
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { font-family: 'Archivo', sans-serif; }
+
+  /* Dimension-line motif (like a CAD drawing dimension) */
+  .dim-line { position: relative; height: 1px; background: #171B19; }
+  .dim-line::before, .dim-line::after {
+    content: ''; position: absolute; top: -4px; width: 1px; height: 9px; background: #171B19;
+  }
+  .dim-line::before { left: 0; }
+  .dim-line::after { right: 0; }
+
+  .spec-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #0E6B4A; font-weight: 600;
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #0E6B4A; outline-offset: 3px;
+  }
+
+  .card { background: #FFFFFF; border: 1px solid #C9CFCB; }
+  .card-corner { position: relative; }
+  /* registration tick in card corners, like a drawing sheet */
+  .card-corner::before {
+    content: ''; position: absolute; top: -1px; left: -1px; width: 14px; height: 14px;
+    border-top: 2px solid #171B19; border-left: 2px solid #171B19;
+  }
+</style>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<!-- ============ NAV ============ -->
+<header class="border-b border-line bg-paper/90 backdrop-blur sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
+    <a href="#top" class="font-mono text-sm font-semibold tracking-widest">A.RUSU</a>
+    <nav class="flex gap-6 font-mono text-xs tracking-wider uppercase">
+      <a href="#skills" class="hover:text-mask">Skills</a>
+      <a href="#projects" class="hover:text-mask">Projects</a>
+      <a href="#contact" class="hover:text-mask">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO / TITLE BLOCK ============ -->
+<section id="top" class="max-w-5xl mx-auto px-5 pt-16 pb-14">
+  <p class="spec-label mb-4">Mechatronics Engineering · University of Waterloo</p>
+  <h1 class="font-display font-black text-5xl md:text-7xl leading-[0.95] tracking-tight">
+    Alexandru<br>Rusu
+  </h1>
+  <div class="dim-line mt-6 mb-6 max-w-md"></div>
+  <p class="text-lg md:text-xl max-w-2xl leading-relaxed">
+    I build mechatronics systems from the ground up — from custom PCBs and 3D-printed
+    mechanisms to the embedded firmware and computer vision that bring them together.
+  </p>
+
+  <!-- Title block: drawing-sheet style info grid -->
+  <div class="mt-10 border border-ink grid grid-cols-2 md:grid-cols-4 font-mono text-xs">
+    <div class="p-3 border-b md:border-b-0 border-r border-ink/30">
+      <div class="spec-label mb-1">Program</div>
+      BASc Mechatronics<br>UWaterloo
+    </div>
+    <div class="p-3 border-b md:border-b-0 md:border-r border-ink/30">
+      <div class="spec-label mb-1">Focus</div>
+      Hardware / software<br>integration
+    </div>
+    <div class="p-3 border-r border-ink/30">
+      <div class="spec-label mb-1">Status</div>
+      Seeking internship<br>Robotics
+    </div>
+    <div class="p-3">
+      <div class="spec-label mb-1">Location</div>
+      Waterloo, ON<br>Canada
+    </div>
+  </div>
+
+  <!-- TODO: replace # links with your real resume URL, email, and LinkedIn -->
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a href="#" class="bg-ink text-silk px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:bg-mask transition-colors">Resume ↗</a>
+    <a href="mailto:your.email@uwaterloo.ca" class="border border-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-mask hover:text-mask transition-colors">Email</a>
+    <a href="#" class="border border-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-mask hover:text-mask transition-colors">LinkedIn ↗</a>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="border-t border-line bg-white">
+  <div class="max-w-5xl mx-auto px-5 py-14">
+    <p class="spec-label mb-2">Technical Stack</p>
+    <h2 class="font-display font-800 font-extrabold text-3xl mb-8">Skills</h2>
+
+    <div class="grid md:grid-cols-2 gap-x-10 gap-y-8">
+      <div>
+        <div class="spec-label mb-3">Software &amp; Vision</div>
+        <div class="flex flex-wrap gap-2">
+          <span class="border border-line px-3 py-1.5 text-sm">C++</span>
+          <span class="border border-line px-3 py-1.5 text-sm">Python</span>
+          <span class="border border-line px-3 py-1.5 text-sm">OpenCV</span>
+        </div>
+      </div>
+      <div>
+        <div class="spec-label mb-3">Embedded</div>
+        <div class="flex flex-wrap gap-2">
+          <span class="border border-line px-3 py-1.5 text-sm">ESP32</span>
+          <span class="border border-line px-3 py-1.5 text-sm">Embedded C++</span>
+        </div>
+      </div>
+      <div>
+        <div class="spec-label mb-3">Electrical Design</div>
+        <div class="flex flex-wrap gap-2">
+          <span class="border border-line px-3 py-1.5 text-sm">KiCad</span>
+          <span class="border border-line px-3 py-1.5 text-sm">Custom PCB Design</span>
+        </div>
+      </div>
+      <div>
+        <div class="spec-label mb-3">Mechanical &amp; Fabrication</div>
+        <div class="flex flex-wrap gap-2">
+          <span class="border border-line px-3 py-1.5 text-sm">SolidWorks</span>
+          <span class="border border-line px-3 py-1.5 text-sm">Autodesk Inventor</span>
+          <span class="border border-line px-3 py-1.5 text-sm">3D Printing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="border-t border-line">
+  <div class="max-w-5xl mx-auto px-5 py-14">
+    <p class="spec-label mb-2">Selected Work</p>
+    <h2 class="font-display font-extrabold text-3xl mb-10">Projects</h2>
+
+    <div class="space-y-10">
+
+      <!-- ======== BLINKRITE ======== -->
+      <article class="card card-corner p-6 md:p-8">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <h3 class="font-display font-extrabold text-2xl">BlinkRite</h3>
+          <span class="font-mono text-[0.65rem] tracking-widest uppercase bg-mask text-silk px-2.5 py-1">Active Project</span>
+        </div>
+        <p class="mt-3 leading-relaxed max-w-3xl">
+          A smart bias lighting system built to combat digital eye strain. BlinkRite monitors
+          the user's blink rate in real time and automatically triggers bias lighting to
+          encourage natural eye readjustment and reduce dry eyes.
+        </p>
+
+        <div class="spec-label mt-6 mb-2">Stack</div>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">Python / ML</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">ESP32 · Embedded C++</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">Bluetooth</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">KiCad · Custom PCB</span>
+        </div>
+
+        <div class="spec-label mb-2">Implementation</div>
+        <ul class="space-y-2 leading-relaxed max-w-3xl list-none">
+          <li class="pl-4 border-l-2 border-mask">Trained a custom ML model on a dataset of 300 video samples to detect eye states locally via a PC webcam.</li>
+          <li class="pl-4 border-l-2 border-mask">Wrote a Python script to process the video stream and transmit low-latency state changes (High / Normal / Low) over Bluetooth.</li>
+          <li class="pl-4 border-l-2 border-mask">Developed embedded C++ firmware on an ESP32 to receive signals and control the lighting hardware.</li>
+        </ul>
+
+        <div class="spec-label mt-6 mb-2">Current Focus</div>
+        <p class="leading-relaxed max-w-3xl">
+          Finalizing the custom PCB assembly (overvoltage/overcurrent protection, JST connectors),
+          linking the hardware and software systems, and refining the ML model to accurately
+          detect high-speed micro-blinks.
+        </p>
+
+        <!-- Media placeholders — swap the divs below for <img> tags when photos are ready -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-7">
+          <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
+            <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
+            <span class="font-mono text-xs tracking-wider mt-1">Breadboard prototype</span>
+          </div>
+          <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
+            <span class="font-mono text-xs tracking-wider text-ink/60">[ RENDER ]</span>
+            <span class="font-mono text-xs tracking-wider mt-1">KiCad PCB render</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ======== AOI SYSTEM ======== -->
+      <article class="card card-corner p-6 md:p-8">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <h3 class="font-display font-extrabold text-2xl">Automated Optical Inspection (AOI) System</h3>
+        </div>
+        <p class="mt-3 leading-relaxed max-w-3xl">
+          An automated optical measurement system for a high-volume CNC production line,
+          replacing manual QA checks on electrical enclosures by verifying hole dimensions
+          and locations to a 0.010" tolerance.
+        </p>
+
+        <div class="spec-label mt-6 mb-2">Stack</div>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">Python · OpenCV</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">ESP32 · Custom PCB</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">Optics &amp; Polarization</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">3D Printing</span>
+        </div>
+
+        <div class="spec-label mb-2">Implementation</div>
+        <ul class="space-y-2 leading-relaxed max-w-3xl list-none">
+          <li class="pl-4 border-l-2 border-mask">Sourced and integrated a high-resolution, distortion-free bare PCB camera.</li>
+          <li class="pl-4 border-l-2 border-mask">Designed a custom 3D-printed camera housing that securely mounts a ring light, with polarized filters on both the lens and light source to eliminate glare from bare metal parts.</li>
+          <li class="pl-4 border-l-2 border-mask">Engineered a custom ESP32-based PCB with a Time-of-Flight sensor to automatically detect inserted parts and trigger measurements, complete with status LEDs.</li>
+          <li class="pl-4 border-l-2 border-mask">Developed Python/OpenCV software to extract dimensional overlays from an internal database and compare them against the physical part.</li>
+          <li class="pl-4 border-l-2 border-mask">Implemented checkerboard camera calibration to correct lens distortion, with a known-size reference block for precise pixel-to-millimeter scaling.</li>
+        </ul>
+
+        <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-6">Media omitted to respect employer IP</p>
+      </article>
+
+      <!-- ======== 2D PLOTTER ======== -->
+      <article class="card card-corner p-6 md:p-8">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <h3 class="font-display font-extrabold text-2xl">Interactive 2D Educational Plotter</h3>
+        </div>
+        <p class="mt-3 leading-relaxed max-w-3xl">
+          An automated 2D drawing robot designed to help children learn and practice basic
+          shapes interactively.
+        </p>
+
+        <div class="spec-label mt-6 mb-2">Stack</div>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">C++</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">VEX IQ Hardware</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">CAD · 3D Printing</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">Sensor Integration</span>
+        </div>
+
+        <div class="spec-label mb-2">Implementation</div>
+        <ul class="space-y-2 leading-relaxed max-w-3xl list-none">
+          <li class="pl-4 border-l-2 border-mask">Converted a base VEX vehicle kit into a functioning multi-axis plotter with an automated paper-feed mechanism.</li>
+          <li class="pl-4 border-l-2 border-mask">Designed and 3D-printed custom mechanical components, including a rack-and-pinion system and a motorized z-axis housing for pen actuation.</li>
+          <li class="pl-4 border-l-2 border-mask">Integrated a color sensor to read physical cue cards, using C++ to trigger pre-programmed shape routines based on the scanned color.</li>
+          <li class="pl-4 border-l-2 border-mask">Programmed a manual "free draw" state allowing full x-y movement and pen actuation via a remote controller.</li>
+        </ul>
+
+        <div class="grid sm:grid-cols-2 gap-4 mt-7 items-start max-w-xl">
+          <div>
+            <video controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full max-h-[70vh] object-contain border border-line bg-ink">
+              <source src="assets/plotter-demo.mp4" type="video/mp4">
+              Your browser can't play this video.
+            </video>
+            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Demo — cue card scan &amp; shape routines</p>
+          </div>
+          <div>
+            <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry" class="w-full border border-line">
+            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Build in progress — gantry &amp; paper feed</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ======== IOT COFFEE MONITOR ======== -->
+      <article class="card card-corner p-6 md:p-8">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <h3 class="font-display font-extrabold text-2xl">IoT Coffee Machine Monitor</h3>
+        </div>
+        <p class="mt-3 leading-relaxed max-w-3xl">
+          A custom IoT device that monitors an office coffee machine's status and
+          automatically notifies the team when fresh coffee is ready.
+        </p>
+
+        <div class="spec-label mt-6 mb-2">Stack</div>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">ESP32 · Embedded C++</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">AC Current Sensing</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">HTTP Webhooks</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">Custom Enclosure</span>
+        </div>
+
+        <div class="spec-label mb-2">Implementation</div>
+        <ul class="space-y-2 leading-relaxed max-w-3xl list-none">
+          <li class="pl-4 border-l-2 border-mask">Engineered a safe 240V AC-to-DC power conversion system to run the microcontroller directly from the wall outlet.</li>
+          <li class="pl-4 border-l-2 border-mask">Integrated a current sensor to profile power draw — differentiating idle states from brewing cycles and counting individual cups brewed from distinct current spikes.</li>
+          <li class="pl-4 border-l-2 border-mask">Programmed embedded C++ to trigger HTTP requests, sending automated status alerts directly to a company Mattermost server.</li>
+          <li class="pl-4 border-l-2 border-mask">Modified and fully waterproofed a custom enclosure to ensure electrical safety in an active kitchen environment.</li>
+        </ul>
+
+        <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-6">Media omitted to respect employer IP</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact" class="border-t border-ink bg-ink text-silk">
+  <div class="max-w-5xl mx-auto px-5 py-14">
+    <p class="font-mono text-[0.68rem] tracking-[0.14em] uppercase text-mask mb-2" style="color:#5FBF9B">Get in touch</p>
+    <h2 class="font-display font-extrabold text-3xl mb-4">Let's build something.</h2>
+    <p class="max-w-xl leading-relaxed text-silk/80">
+      I'm currently seeking a Mechatronics Engineering internship in robotics.
+      If you'd like to talk hardware, firmware, or anything in between — reach out.
+    </p>
+    <!-- TODO: replace # links with your real resume URL, email, and LinkedIn -->
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a href="mailto:your.email@uwaterloo.ca" class="bg-silk text-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:bg-white transition-colors">Email me</a>
+      <a href="#" class="border border-silk/50 px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-silk transition-colors">LinkedIn ↗</a>
+      <a href="#" class="border border-silk/50 px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-silk transition-colors">Resume ↗</a>
+    </div>
+    <div class="dim-line mt-12 mb-4" style="background:#3A423E"></div>
+    <p class="font-mono text-[0.65rem] tracking-wider text-silk/50">ALEXANDRU RUSU · MECHATRONICS ENGINEERING · UNIVERSITY OF WATERLOO</p>
+  </div>
+</footer>
+
+</body>
+</html>

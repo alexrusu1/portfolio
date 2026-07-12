@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alexandru Rusu — Mechatronics Engineering</title>
+<title>Alexandru Rusu · Mechatronics Engineering</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -81,8 +82,8 @@ tailwind.config = {
   </h1>
   <div class="dim-line mt-6 mb-6 max-w-md"></div>
   <p class="text-lg md:text-xl max-w-2xl leading-relaxed">
-    I build mechatronics systems from the ground up — from custom PCBs and 3D-printed
-    mechanisms to the embedded firmware and computer vision that bring them together.
+    I build mechatronics systems from the ground up: custom PCBs, 3D-printed mechanisms,
+    embedded firmware, and the computer vision that brings it all together.
   </p>
 
   <!-- Title block: drawing-sheet style info grid -->
@@ -97,7 +98,7 @@ tailwind.config = {
     </div>
     <div class="p-3 border-r border-ink/30">
       <div class="spec-label mb-1">Status</div>
-      Seeking internship<br>Robotics
+      Seeking Co-op<br>Winter 2027
     </div>
     <div class="p-3">
       <div class="spec-label mb-1">Location</div>
@@ -105,11 +106,19 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- TODO: replace # links with your real resume URL, email, and LinkedIn -->
   <div class="mt-8 flex flex-wrap gap-3">
-    <a href="#" class="bg-ink text-silk px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:bg-mask transition-colors">Resume ↗</a>
-    <a href="mailto:your.email@uwaterloo.ca" class="border border-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-mask hover:text-mask transition-colors">Email</a>
-    <a href="#" class="border border-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-mask hover:text-mask transition-colors">LinkedIn ↗</a>
+    <a href="resume.pdf" target="_blank" rel="noopener" class="flex items-center gap-2 bg-ink text-silk px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:bg-mask transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      Resume ↗
+    </a>
+    <a href="mailto:alex.rusu0720@gmail.com" class="flex items-center gap-2 border border-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-mask hover:text-mask transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+      Email
+    </a>
+    <a href="https://www.linkedin.com/in/alexandrusu/" target="_blank" rel="noopener" class="flex items-center gap-2 border border-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-mask hover:text-mask transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.68h-3.56V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56z"/></svg>
+      LinkedIn ↗
+    </a>
   </div>
 </section>
 
@@ -126,6 +135,7 @@ tailwind.config = {
           <span class="border border-line px-3 py-1.5 text-sm">C++</span>
           <span class="border border-line px-3 py-1.5 text-sm">Python</span>
           <span class="border border-line px-3 py-1.5 text-sm">OpenCV</span>
+          <span class="border border-line px-3 py-1.5 text-sm">MediaPipe</span>
         </div>
       </div>
       <div>
@@ -177,6 +187,7 @@ tailwind.config = {
         <div class="spec-label mt-6 mb-2">Stack</div>
         <div class="flex flex-wrap gap-2 mb-6">
           <span class="border border-line px-2.5 py-1 text-xs font-mono">Python / ML</span>
+          <span class="border border-line px-2.5 py-1 text-xs font-mono">MediaPipe</span>
           <span class="border border-line px-2.5 py-1 text-xs font-mono">ESP32 · Embedded C++</span>
           <span class="border border-line px-2.5 py-1 text-xs font-mono">Bluetooth</span>
           <span class="border border-line px-2.5 py-1 text-xs font-mono">KiCad · Custom PCB</span>
@@ -184,7 +195,7 @@ tailwind.config = {
 
         <div class="spec-label mb-2">Implementation</div>
         <ul class="space-y-2 leading-relaxed max-w-3xl list-none">
-          <li class="pl-4 border-l-2 border-mask">Trained a custom ML model on a dataset of 300 video samples to detect eye states locally via a PC webcam.</li>
+          <li class="pl-4 border-l-2 border-mask">Used MediaPipe face-mesh landmarks to isolate the eye region, then trained a custom ML model on a dataset of 300 video samples to detect eye states locally via a PC webcam.</li>
           <li class="pl-4 border-l-2 border-mask">Wrote a Python script to process the video stream and transmit low-latency state changes (High / Normal / Low) over Bluetooth.</li>
           <li class="pl-4 border-l-2 border-mask">Developed embedded C++ firmware on an ESP32 to receive signals and control the lighting hardware.</li>
         </ul>
@@ -268,15 +279,15 @@ tailwind.config = {
 
         <div class="grid sm:grid-cols-5 gap-4 mt-7 items-start">
           <div class="sm:col-span-3">
-            <video controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full border border-line bg-ink">
+            <video controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full aspect-video object-cover border border-line bg-ink">
               <source src="assets/plotter-demo.mp4" type="video/mp4">
               Your browser can't play this video.
             </video>
-            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Demo — cue card scan &amp; shape routines</p>
+            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Demo · cue card scan &amp; shape routines</p>
           </div>
           <div class="sm:col-span-2">
             <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry" class="w-full border border-line">
-            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Build in progress — gantry &amp; paper feed</p>
+            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Build in progress · gantry &amp; paper feed</p>
           </div>
         </div>
       </article>
@@ -302,7 +313,7 @@ tailwind.config = {
         <div class="spec-label mb-2">Implementation</div>
         <ul class="space-y-2 leading-relaxed max-w-3xl list-none">
           <li class="pl-4 border-l-2 border-mask">Engineered a safe 240V AC-to-DC power conversion system to run the microcontroller directly from the wall outlet.</li>
-          <li class="pl-4 border-l-2 border-mask">Integrated a current sensor to profile power draw — differentiating idle states from brewing cycles and counting individual cups brewed from distinct current spikes.</li>
+          <li class="pl-4 border-l-2 border-mask">Integrated a current sensor to profile power draw, differentiating idle states from brewing cycles and counting individual cups brewed from distinct current spikes.</li>
           <li class="pl-4 border-l-2 border-mask">Programmed embedded C++ to trigger HTTP requests, sending automated status alerts directly to a company Mattermost server.</li>
           <li class="pl-4 border-l-2 border-mask">Modified and fully waterproofed a custom enclosure to ensure electrical safety in an active kitchen environment.</li>
         </ul>
@@ -320,14 +331,22 @@ tailwind.config = {
     <p class="font-mono text-[0.68rem] tracking-[0.14em] uppercase text-mask mb-2" style="color:#5FBF9B">Get in touch</p>
     <h2 class="font-display font-extrabold text-3xl mb-4">Let's build something.</h2>
     <p class="max-w-xl leading-relaxed text-silk/80">
-      I'm currently seeking a Mechatronics Engineering internship in robotics.
-      If you'd like to talk hardware, firmware, or anything in between — reach out.
+      I'm looking for a Winter 2027 co-op in robotics, embedded systems, firmware,
+      hardware, mechatronics, or ML. If you'd like to talk shop, reach out.
     </p>
-    <!-- TODO: replace # links with your real resume URL, email, and LinkedIn -->
     <div class="mt-7 flex flex-wrap gap-3">
-      <a href="mailto:your.email@uwaterloo.ca" class="bg-silk text-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:bg-white transition-colors">Email me</a>
-      <a href="#" class="border border-silk/50 px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-silk transition-colors">LinkedIn ↗</a>
-      <a href="#" class="border border-silk/50 px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-silk transition-colors">Resume ↗</a>
+      <a href="mailto:alex.rusu0720@gmail.com" class="flex items-center gap-2 bg-silk text-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:bg-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+        Email me
+      </a>
+      <a href="https://www.linkedin.com/in/alexandrusu/" target="_blank" rel="noopener" class="flex items-center gap-2 border border-silk/50 px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-silk transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.68h-3.56V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56z"/></svg>
+        LinkedIn ↗
+      </a>
+      <a href="resume.pdf" target="_blank" rel="noopener" class="flex items-center gap-2 border border-silk/50 px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:border-silk transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        Resume ↗
+      </a>
     </div>
     <div class="dim-line mt-12 mb-4" style="background:#3A423E"></div>
     <p class="font-mono text-[0.65rem] tracking-wider text-silk/50">ALEXANDRU RUSU · MECHATRONICS ENGINEERING · UNIVERSITY OF WATERLOO</p>
