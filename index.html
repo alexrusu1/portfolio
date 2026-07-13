@@ -77,7 +77,7 @@ tailwind.config = {
   /* Lightbox */
   #lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(23,27,25,0.96); display: flex; align-items: center; justify-content: center; }
   #lightbox[hidden] { display: none; }
-  #lightbox img { max-width: min(90vw, 1100px); max-height: 78vh; object-fit: contain; border: 1px solid #3a3f3c; background: #0E0F0E; }
+  #lightbox img, #lightbox video { max-width: min(90vw, 1100px); max-height: 78vh; object-fit: contain; border: 1px solid #3a3f3c; background: #0E0F0E; }
   #lightbox .lightbox-caption { color: #E9ECEA; }
   #lightbox .lightbox-arrow, #lightbox .lightbox-close {
     color: #E9ECEA; border: 1px solid rgba(233,236,234,0.35); background: rgba(255,255,255,0.04);
@@ -274,6 +274,13 @@ tailwind.config = {
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">PCB assembly, in progress</p>
           </div>
+          <div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 5)">
+              <img src="assets/blinkrite-detection-demo.png" alt="BlinkRite live blink-rate detection UI with eye-tracking overlay">
+              <span class="zoom-tag">Expand</span>
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Live blink-rate detection</p>
+          </div>
           <!-- pending: swap for <img src="assets/blinkrite-final-assembly.jpg"> -->
           <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
             <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
@@ -341,17 +348,20 @@ tailwind.config = {
 
         <div class="grid sm:grid-cols-5 gap-4 mt-7 items-start">
           <div class="sm:col-span-3">
-            <video id="plotter-video" controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full aspect-video object-cover border border-line bg-ink">
-              <source src="assets/plotter-demo.mp4" type="video/mp4">
-              Your browser can't play this video.
-            </video>
+            <div class="relative">
+              <video id="plotter-video" controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full aspect-video object-cover border border-line bg-ink" onloadedmetadata="this.playbackRate = 2" onplay="this.playbackRate = 2">
+                <source src="assets/plotter-demo.mp4" type="video/mp4">
+                Your browser can't play this video.
+              </video>
+              <button type="button" onclick="const v=document.getElementById('plotter-video'); v.playbackRate = v.playbackRate === 2 ? 1 : 2; this.textContent = v.playbackRate + 'x';" class="absolute top-2 right-2 font-mono text-[0.68rem] tracking-wider uppercase border border-silk/40 bg-ink/70 backdrop-blur-sm text-silk px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">2x</button>
+            </div>
             <div class="flex items-center justify-between mt-2">
               <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50">Demo · cue card scan &amp; shape routines</p>
-              <button type="button" onclick="const v=document.getElementById('plotter-video'); v.playbackRate = v.playbackRate === 2 ? 1 : 2; this.textContent = v.playbackRate + 'x';" class="font-mono text-[0.68rem] tracking-wider uppercase border border-line px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">1x</button>
+              <button type="button" onclick="openLightbox('plotter', 0)" class="font-mono text-[0.68rem] tracking-wider uppercase border border-line px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">Expand</button>
             </div>
           </div>
           <div class="sm:col-span-2">
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('plotter', 0)">
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('plotter', 1)">
               <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry">
               <span class="zoom-tag">Expand</span>
             </button>
@@ -433,6 +443,9 @@ tailwind.config = {
   </button>
   <div class="flex flex-col items-center gap-3 px-4" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="">
+    <video id="lightbox-video" controls hidden onloadedmetadata="this.playbackRate = 2" onplay="this.playbackRate = 2">
+      <source src="" type="video/mp4">
+    </video>
     <div class="lightbox-caption font-mono text-xs tracking-wider uppercase text-center">
       <span id="lightbox-caption-text"></span>
       <span id="lightbox-counter" class="text-silk/50 ml-2"></span>
@@ -448,8 +461,10 @@ tailwind.config = {
       { src: 'assets/blinkrite-breadboard.png', caption: 'Breadboard prototype' },
       { src: 'assets/blinkrite-pcb-render.png', caption: 'KiCad PCB render' },
       { src: 'assets/blinkrite-pcb-halfway.png', caption: 'PCB assembly, in progress' },
+      { src: 'assets/blinkrite-detection-demo.png', caption: 'Live blink-rate detection' },
     ],
     plotter: [
+      { type: 'video', src: 'assets/plotter-demo.mp4', poster: 'assets/plotter-poster.jpg', caption: 'Demo · cue card scan & shape routines' },
       { src: 'assets/plotter-build.jpg', caption: 'Build in progress · gantry & paper feed' },
     ],
   };
@@ -459,8 +474,23 @@ tailwind.config = {
   function updateLightboxImage() {
     const items = galleries[currentGallery];
     const item = items[currentIndex];
-    document.getElementById('lightbox-img').src = item.src;
-    document.getElementById('lightbox-img').alt = item.caption;
+    const imgEl = document.getElementById('lightbox-img');
+    const videoEl = document.getElementById('lightbox-video');
+
+    videoEl.pause();
+    if (item.type === 'video') {
+      videoEl.querySelector('source').src = item.src;
+      videoEl.poster = item.poster || '';
+      videoEl.load();
+      videoEl.hidden = false;
+      imgEl.hidden = true;
+    } else {
+      imgEl.src = item.src;
+      imgEl.alt = item.caption;
+      imgEl.hidden = false;
+      videoEl.hidden = true;
+    }
+
     document.getElementById('lightbox-caption-text').textContent = item.caption;
     const multi = items.length > 1;
     document.getElementById('lightbox-counter').textContent = multi ? `(${currentIndex + 1} / ${items.length})` : '';
@@ -477,6 +507,7 @@ tailwind.config = {
   }
 
   function closeLightbox() {
+    document.getElementById('lightbox-video').pause();
     document.getElementById('lightbox').hidden = true;
     document.body.style.overflow = '';
   }
