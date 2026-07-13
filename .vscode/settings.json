@@ -1,0 +1,8 @@
+{
+    "code-runner.executorMap": {
+        "html": "open $fullFileName"
+    },
+    "code-runner.executorMapByFileExtension": {
+        ".html": "open $fullFileName"
+    }
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alexandru Rusu · Mechatronics Engineering</title>
+<title>Alexandru Rusu · Niggatronics Engineering</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,23 +108,19 @@ tailwind.config = {
   </h1>
   <div class="dim-line mt-6 mb-6 max-w-md"></div>
   <p class="text-lg md:text-xl max-w-2xl leading-relaxed">
-    I build mechatronics systems from the ground up: custom PCBs, 3D-printed mechanisms,
+    I like to build cool things: custom PCBs, 3D-printed mechanisms,
     embedded firmware, and the computer vision that brings it all together.
   </p>
 
   <!-- Title block: drawing-sheet style info grid -->
-  <div class="mt-10 border border-ink grid grid-cols-2 md:grid-cols-4 font-mono text-xs">
-    <div class="p-3 border-b md:border-b-0 border-r border-ink/30">
+  <div class="mt-10 border border-ink grid grid-cols-1 sm:grid-cols-3 font-mono text-xs">
+    <div class="p-3 border-b sm:border-b-0 sm:border-r border-ink/30">
       <div class="spec-label mb-1">Program</div>
       BASc Mechatronics<br>UWaterloo
     </div>
-    <div class="p-3 border-b md:border-b-0 md:border-r border-ink/30">
+    <div class="p-3 border-b sm:border-b-0 sm:border-r border-ink/30">
       <div class="spec-label mb-1">Focus</div>
       Hardware / software<br>integration
-    </div>
-    <div class="p-3 border-r border-ink/30">
-      <div class="spec-label mb-1">Status</div>
-      Seeking Co-op<br>Winter 2027
     </div>
     <div class="p-3">
       <div class="spec-label mb-1">Location</div>
@@ -243,25 +239,36 @@ tailwind.config = {
           </div>
           <div>
             <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
+              <img src="assets/blinkrite-lamp-frame.png" alt="3D-printed BlinkRite lamp frame mounted above a monitor">
+              <span class="zoom-tag">Expand</span>
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Lamp frame</p>
+          </div>
+          <div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
+              <img src="assets/blinkrite-breadboard.png" alt="BlinkRite breadboard prototype with lit bias-lighting strip">
+              <span class="zoom-tag">Expand</span>
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Breadboard prototype</p>
+          </div>
+          <div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 3)">
               <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">
               <span class="zoom-tag">Expand</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">KiCad PCB render</p>
           </div>
-          <!-- pending: swap for <img src="assets/blinkrite-breadboard.jpg"> -->
-          <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
-            <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
-            <span class="font-mono text-xs tracking-wider mt-1">Breadboard prototype</span>
+          <div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
+              <img src="assets/blinkrite-pcb-halfway.png" alt="BlinkRite custom PCB partially assembled">
+              <span class="zoom-tag">Expand</span>
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">PCB assembly, in progress</p>
           </div>
-          <!-- pending: swap for <img src="assets/blinkrite-pcb-halfway.jpg"> -->
+          <!-- pending: swap for <img src="assets/blinkrite-final-assembly.jpg"> -->
           <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
             <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
-            <span class="font-mono text-xs tracking-wider mt-1">PCB assembly, in progress</span>
-          </div>
-          <!-- pending: swap for <img src="assets/blinkrite-lamp-frame.jpg"> -->
-          <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
-            <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
-            <span class="font-mono text-xs tracking-wider mt-1">Lamp frame</span>
+            <span class="font-mono text-xs tracking-wider mt-1">Final assembly</span>
           </div>
         </div>
       </article>
@@ -383,8 +390,7 @@ tailwind.config = {
     <p class="font-mono text-[0.68rem] tracking-[0.14em] uppercase text-mask mb-2" style="color:#5FBF9B">Get in touch</p>
     <h2 class="font-display font-extrabold text-3xl mb-4">Let's build something.</h2>
     <p class="max-w-xl leading-relaxed text-silk/80">
-      I'm looking for a Winter 2027 co-op in robotics, embedded systems, firmware,
-      hardware, mechatronics, or ML. If you'd like to talk shop, reach out.
+      If you'd like to talk hardware, firmware, or anything in between, reach out.
     </p>
     <div class="mt-7 flex flex-wrap gap-3">
       <a href="mailto:alex.rusu0720@gmail.com" class="flex items-center gap-2 bg-silk text-ink px-5 py-2.5 font-mono text-xs tracking-widest uppercase hover:bg-white transition-colors">
@@ -410,10 +416,10 @@ tailwind.config = {
   <button type="button" onclick="closeLightbox()" aria-label="Close" class="lightbox-close absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="w-5 h-5"><path d="M18 6 6 18M6 6l12 12"/></svg>
   </button>
-  <button type="button" id="lightbox-prev" onclick="navLightbox(-1)" aria-label="Previous image" class="lightbox-arrow absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center">
+  <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); navLightbox(-1)" aria-label="Previous image" class="lightbox-arrow absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
   </button>
-  <button type="button" id="lightbox-next" onclick="navLightbox(1)" aria-label="Next image" class="lightbox-arrow absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center">
+  <button type="button" id="lightbox-next" onclick="event.stopPropagation(); navLightbox(1)" aria-label="Next image" class="lightbox-arrow absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 18 6-6-6-6"/></svg>
   </button>
   <div class="flex flex-col items-center gap-3 px-4" onclick="event.stopPropagation()">
@@ -429,7 +435,10 @@ tailwind.config = {
   const galleries = {
     blinkrite: [
       { src: 'assets/blinkrite-lightbar-render.png', caption: 'CAD render · light bar assembly' },
+      { src: 'assets/blinkrite-lamp-frame.png', caption: 'Lamp frame' },
+      { src: 'assets/blinkrite-breadboard.png', caption: 'Breadboard prototype' },
       { src: 'assets/blinkrite-pcb-render.png', caption: 'KiCad PCB render' },
+      { src: 'assets/blinkrite-pcb-halfway.png', caption: 'PCB assembly, in progress' },
     ],
     plotter: [
       { src: 'assets/plotter-build.jpg', caption: 'Build in progress · gantry & paper feed' },
