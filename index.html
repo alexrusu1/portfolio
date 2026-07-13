@@ -67,12 +67,13 @@ tailwind.config = {
     content: ''; position: absolute; inset: 0; background: #171B19; opacity: 0; transition: opacity 0.25s ease;
   }
   .gallery-thumb:hover::after { opacity: 0.15; }
-  .gallery-thumb .zoom-tag {
-    position: absolute; bottom: 8px; right: 8px; background: #171B19; color: #E9ECEA;
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 3px 7px; opacity: 0; transform: translateY(4px); transition: all 0.25s ease;
+  .gallery-thumb-video .play-badge {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 42px; height: 42px; border-radius: 999px; background: rgba(23,27,25,0.72);
+    color: #E9ECEA; display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(233,236,234,0.5); transition: background 0.25s ease;
   }
-  .gallery-thumb:hover .zoom-tag { opacity: 1; transform: translateY(0); }
+  .gallery-thumb-video:hover .play-badge { background: #0E6B4A; border-color: #0E6B4A; }
 
   /* Lightbox */
   #lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(23,27,25,0.96); display: flex; align-items: center; justify-content: center; }
@@ -229,58 +230,39 @@ tailwind.config = {
           detect high-speed micro-blinks.
         </p>
 
-        <div class="spec-label mt-6 mb-2">Demo</div>
-        <div class="max-w-md">
-          <video id="blinkrite-video" controls preload="metadata" poster="assets/blinkrite-demo-poster.jpg" style="aspect-ratio: 1504 / 1240" class="w-full object-cover border border-line bg-ink">
-            <source src="assets/blinkrite-demo.mp4" type="video/mp4">
-            Your browser can't play this video.
-          </video>
-          <div class="flex items-center justify-between mt-2">
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50">Live blink-rate detection &amp; eye-landmark tracking</p>
-            <button type="button" onclick="openLightbox('blinkrite', 0)" class="font-mono text-[0.65rem] tracking-wider uppercase border border-line px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">Expand</button>
-          </div>
-        </div>
-
         <div class="grid sm:grid-cols-3 gap-4 mt-7">
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
-              <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">
-              <span class="zoom-tag">Expand</span>
-            </button>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 0)">
+              <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">            </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">CAD render · light bar assembly</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
-              <img src="assets/blinkrite-lamp-frame.png" alt="3D-printed BlinkRite lamp frame mounted above a monitor">
-              <span class="zoom-tag">Expand</span>
-            </button>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
+              <img src="assets/blinkrite-lamp-frame.png" alt="3D-printed BlinkRite lamp frame mounted above a monitor">            </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Lamp frame</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 3)">
-              <img src="assets/blinkrite-breadboard.png" alt="BlinkRite breadboard prototype with lit bias-lighting strip">
-              <span class="zoom-tag">Expand</span>
-            </button>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
+              <img src="assets/blinkrite-breadboard.png" alt="BlinkRite breadboard prototype with lit bias-lighting strip">            </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Breadboard prototype</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
-              <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">
-              <span class="zoom-tag">Expand</span>
-            </button>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 3)">
+              <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">            </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">KiCad PCB render</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 5)">
-              <img src="assets/blinkrite-pcb-halfway.png" alt="BlinkRite custom PCB partially assembled">
-              <span class="zoom-tag">Expand</span>
-            </button>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
+              <img src="assets/blinkrite-pcb-halfway.png" alt="BlinkRite custom PCB partially assembled">            </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">PCB assembly, in progress</p>
           </div>
-          <!-- pending: swap for <img src="assets/blinkrite-final-assembly.jpg"> -->
-          <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
-            <span class="font-mono text-xs tracking-wider text-ink/60">[ PHOTO ]</span>
-            <span class="font-mono text-xs tracking-wider mt-1">Final assembly</span>
+          <div>
+            <button type="button" class="gallery-thumb gallery-thumb-video w-full" onclick="openLightbox('blinkrite', 5)">
+              <img src="assets/blinkrite-demo-poster.jpg" alt="BlinkRite live demo — blink-rate detection and eye-landmark tracking">
+              <span class="play-badge" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M8 5v14l11-7z"/></svg>
+              </span>            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Live demo · blink-rate detection</p>
           </div>
         </div>
       </article>
@@ -342,25 +324,18 @@ tailwind.config = {
           <li class="pl-4 border-l-2 border-mask">Programmed a manual "free draw" state allowing full x-y movement and pen actuation via a remote controller.</li>
         </ul>
 
-        <div class="grid sm:grid-cols-5 gap-4 mt-7 items-start">
-          <div class="sm:col-span-3">
-            <div class="relative">
-              <video id="plotter-video" controls preload="metadata" poster="assets/plotter-poster.jpg" class="w-full aspect-video object-cover border border-line bg-ink" onloadedmetadata="this.playbackRate = 2" onplay="this.playbackRate = 2">
-                <source src="assets/plotter-demo.mp4" type="video/mp4">
-                Your browser can't play this video.
-              </video>
-              <button type="button" onclick="const v=document.getElementById('plotter-video'); v.playbackRate = v.playbackRate === 2 ? 1 : 2; this.textContent = v.playbackRate + 'x';" class="absolute top-2 right-2 font-mono text-[0.68rem] tracking-wider uppercase border border-silk/40 bg-ink/70 backdrop-blur-sm text-silk px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">2x</button>
-            </div>
-            <div class="flex items-center justify-between mt-2">
-              <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50">Demo · cue card scan &amp; shape routines</p>
-              <button type="button" onclick="openLightbox('plotter', 0)" class="font-mono text-[0.68rem] tracking-wider uppercase border border-line px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">Expand</button>
-            </div>
+        <div class="grid sm:grid-cols-2 gap-4 mt-7">
+          <div>
+            <button type="button" class="gallery-thumb gallery-thumb-video w-full" onclick="openLightbox('plotter', 0)">
+              <img src="assets/plotter-poster.jpg" alt="VEX IQ plotter demo — cue card scan and shape routines">
+              <span class="play-badge" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M8 5v14l11-7z"/></svg>
+              </span>            </button>
+            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Demo · cue card scan &amp; shape routines</p>
           </div>
-          <div class="sm:col-span-2">
+          <div>
             <button type="button" class="gallery-thumb w-full" onclick="openLightbox('plotter', 1)">
-              <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry">
-              <span class="zoom-tag">Expand</span>
-            </button>
+              <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry">            </button>
             <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Build in progress · gantry &amp; paper feed</p>
           </div>
         </div>
@@ -386,7 +361,7 @@ tailwind.config = {
 
         <div class="spec-label mb-2">Implementation</div>
         <ul class="space-y-2 leading-relaxed max-w-3xl list-none">
-          <li class="pl-4 border-l-2 border-mask">Engineered a safe 240V AC-to-DC power conversion system to run the microcontroller directly from the wall outlet.</li>
+          <li class="pl-4 border-l-2 border-mask">Engineered a safe 120V AC-to-DC power conversion system to run the microcontroller directly from the wall outlet.</li>
           <li class="pl-4 border-l-2 border-mask">Integrated a current sensor to profile power draw, differentiating idle states from brewing cycles and counting individual cups brewed from distinct current spikes.</li>
           <li class="pl-4 border-l-2 border-mask">Programmed embedded C++ to trigger HTTP requests, sending automated status alerts directly to a company Mattermost server.</li>
           <li class="pl-4 border-l-2 border-mask">Modified and fully waterproofed a custom enclosure to ensure electrical safety in an active kitchen environment.</li>
@@ -439,7 +414,7 @@ tailwind.config = {
   </button>
   <div class="flex flex-col items-center gap-3 px-4" onclick="event.stopPropagation()">
     <img id="lightbox-img" src="" alt="">
-    <video id="lightbox-video" controls hidden onloadedmetadata="this.playbackRate = 2" onplay="this.playbackRate = 2">
+    <video id="lightbox-video" controls hidden>
       <source src="" type="video/mp4">
     </video>
     <div class="lightbox-caption font-mono text-xs tracking-wider uppercase text-center">
@@ -452,15 +427,15 @@ tailwind.config = {
 <script>
   const galleries = {
     blinkrite: [
-      { type: 'video', src: 'assets/blinkrite-demo.mp4', poster: 'assets/blinkrite-demo-poster.jpg', caption: 'Live blink-rate detection & eye-landmark tracking' },
       { src: 'assets/blinkrite-lightbar-render.png', caption: 'CAD render · light bar assembly' },
       { src: 'assets/blinkrite-lamp-frame.png', caption: 'Lamp frame' },
       { src: 'assets/blinkrite-breadboard.png', caption: 'Breadboard prototype' },
       { src: 'assets/blinkrite-pcb-render.png', caption: 'KiCad PCB render' },
       { src: 'assets/blinkrite-pcb-halfway.png', caption: 'PCB assembly, in progress' },
+      { type: 'video', src: 'assets/blinkrite-demo.mp4', poster: 'assets/blinkrite-demo-poster.jpg', caption: 'Live blink-rate detection & eye-landmark tracking' },
     ],
     plotter: [
-      { type: 'video', src: 'assets/plotter-demo.mp4', poster: 'assets/plotter-poster.jpg', caption: 'Demo · cue card scan & shape routines' },
+      { type: 'video', src: 'assets/plotter-demo.mp4', poster: 'assets/plotter-poster.jpg', caption: 'Demo · cue card scan & shape routines', rate: 2 },
       { src: 'assets/plotter-build.jpg', caption: 'Build in progress · gantry & paper feed' },
     ],
   };
@@ -477,6 +452,9 @@ tailwind.config = {
     if (item.type === 'video') {
       videoEl.querySelector('source').src = item.src;
       videoEl.poster = item.poster || '';
+      const rate = item.rate || 1;
+      videoEl.onloadedmetadata = () => { videoEl.playbackRate = rate; };
+      videoEl.onplay = () => { videoEl.playbackRate = rate; };
       videoEl.load();
       videoEl.hidden = false;
       imgEl.hidden = true;
