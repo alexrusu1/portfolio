@@ -231,55 +231,51 @@ tailwind.config = {
 
         <div class="spec-label mt-6 mb-2">Demo</div>
         <div class="max-w-md">
-          <video controls preload="metadata" poster="assets/blinkrite-demo-poster.jpg" style="aspect-ratio: 1504 / 1240" class="w-full object-cover border border-line bg-ink">
+          <video id="blinkrite-video" controls preload="metadata" poster="assets/blinkrite-demo-poster.jpg" style="aspect-ratio: 1504 / 1240" class="w-full object-cover border border-line bg-ink">
             <source src="assets/blinkrite-demo.mp4" type="video/mp4">
             Your browser can't play this video.
           </video>
-          <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Live blink-rate detection &amp; eye-landmark tracking</p>
+          <div class="flex items-center justify-between mt-2">
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50">Live blink-rate detection &amp; eye-landmark tracking</p>
+            <button type="button" onclick="openLightbox('blinkrite', 0)" class="font-mono text-[0.65rem] tracking-wider uppercase border border-line px-2 py-0.5 hover:border-mask hover:text-mask transition-colors">Expand</button>
+          </div>
         </div>
 
         <div class="grid sm:grid-cols-3 gap-4 mt-7">
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 0)">
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
               <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">
               <span class="zoom-tag">Expand</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">CAD render · light bar assembly</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
               <img src="assets/blinkrite-lamp-frame.png" alt="3D-printed BlinkRite lamp frame mounted above a monitor">
               <span class="zoom-tag">Expand</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Lamp frame</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 3)">
               <img src="assets/blinkrite-breadboard.png" alt="BlinkRite breadboard prototype with lit bias-lighting strip">
               <span class="zoom-tag">Expand</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Breadboard prototype</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 3)">
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
               <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">
               <span class="zoom-tag">Expand</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">KiCad PCB render</p>
           </div>
           <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 5)">
               <img src="assets/blinkrite-pcb-halfway.png" alt="BlinkRite custom PCB partially assembled">
               <span class="zoom-tag">Expand</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">PCB assembly, in progress</p>
-          </div>
-          <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 5)">
-              <img src="assets/blinkrite-detection-demo.png" alt="BlinkRite live blink-rate detection UI with eye-tracking overlay">
-              <span class="zoom-tag">Expand</span>
-            </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Live blink-rate detection</p>
           </div>
           <!-- pending: swap for <img src="assets/blinkrite-final-assembly.jpg"> -->
           <div class="border border-dashed border-ink/40 aspect-[4/3] flex flex-col items-center justify-center text-center p-4">
@@ -456,12 +452,12 @@ tailwind.config = {
 <script>
   const galleries = {
     blinkrite: [
+      { type: 'video', src: 'assets/blinkrite-demo.mp4', poster: 'assets/blinkrite-demo-poster.jpg', caption: 'Live blink-rate detection & eye-landmark tracking' },
       { src: 'assets/blinkrite-lightbar-render.png', caption: 'CAD render · light bar assembly' },
       { src: 'assets/blinkrite-lamp-frame.png', caption: 'Lamp frame' },
       { src: 'assets/blinkrite-breadboard.png', caption: 'Breadboard prototype' },
       { src: 'assets/blinkrite-pcb-render.png', caption: 'KiCad PCB render' },
       { src: 'assets/blinkrite-pcb-halfway.png', caption: 'PCB assembly, in progress' },
-      { src: 'assets/blinkrite-detection-demo.png', caption: 'Live blink-rate detection' },
     ],
     plotter: [
       { type: 'video', src: 'assets/plotter-demo.mp4', poster: 'assets/plotter-poster.jpg', caption: 'Demo · cue card scan & shape routines' },
