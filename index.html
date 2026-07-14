@@ -75,6 +75,20 @@ tailwind.config = {
   }
   .gallery-thumb-video:hover .play-badge { background: #0E6B4A; border-color: #0E6B4A; }
 
+  /* Build-sequence steps: numbered drafting-style flow through each project's media */
+  .step-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .step-num {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; font-weight: 600;
+    color: #0E6B4A; border: 1px solid #0E6B4A; padding: 1px 6px;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .step-phase {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(23,27,25,0.65); white-space: nowrap;
+  }
+  .step-head::after { content: ''; flex: 1; height: 1px; background: #C9CFCB; min-width: 12px; }
+  .build-step:hover .step-num { background: #0E6B4A; color: #E9ECEA; }
+
   /* Lightbox */
   #lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(23,27,25,0.96); display: flex; align-items: center; justify-content: center; }
   #lightbox[hidden] { display: none; }
@@ -230,39 +244,52 @@ tailwind.config = {
           detect high-speed micro-blinks.
         </p>
 
-        <div class="grid sm:grid-cols-3 gap-4 mt-7">
-          <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 0)">
-              <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">            </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">CAD render · light bar assembly</p>
-          </div>
-          <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
-              <img src="assets/blinkrite-lamp-frame.png" alt="3D-printed BlinkRite lamp frame mounted above a monitor">            </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Lamp frame</p>
-          </div>
-          <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
-              <img src="assets/blinkrite-breadboard.png" alt="BlinkRite breadboard prototype with lit bias-lighting strip">            </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Breadboard prototype</p>
-          </div>
-          <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 3)">
-              <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">            </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">KiCad PCB render</p>
-          </div>
-          <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
-              <img src="assets/blinkrite-pcb-halfway.png" alt="BlinkRite custom PCB partially assembled">            </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">PCB assembly, in progress</p>
-          </div>
-          <div>
-            <button type="button" class="gallery-thumb gallery-thumb-video w-full" onclick="openLightbox('blinkrite', 5)">
+        <div class="spec-label mt-7 mb-3">Build Sequence</div>
+        <div class="grid sm:grid-cols-3 gap-x-4 gap-y-6">
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">01</span><span class="step-phase">Detection</span></div>
+            <button type="button" class="gallery-thumb gallery-thumb-video w-full" onclick="openLightbox('blinkrite', 0)">
               <img src="assets/blinkrite-demo-poster.jpg" alt="BlinkRite live demo — blink-rate detection and eye-landmark tracking">
               <span class="play-badge" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M8 5v14l11-7z"/></svg>
-              </span>            </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Live demo · blink-rate detection</p>
+              </span>
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">ML blink tracking, running live</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">02</span><span class="step-phase">Proof of concept</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 1)">
+              <img src="assets/blinkrite-breadboard.png" alt="BlinkRite breadboard prototype with lit bias-lighting strip">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">First working circuit on breadboard</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">03</span><span class="step-phase">CAD Design</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
+              <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Light bar assembly &amp; mount</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">04</span><span class="step-phase">Fabrication</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 3)">
+              <img src="assets/blinkrite-lamp-frame.png" alt="3D-printed BlinkRite lamp frame mounted above a monitor">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">3D-printed lamp frame</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">05</span><span class="step-phase">PCB Design</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
+              <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Custom board in KiCad</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">06</span><span class="step-phase">Assembly</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 5)">
+              <img src="assets/blinkrite-pcb-halfway.png" alt="BlinkRite custom PCB partially assembled">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">PCB build · in progress</p>
           </div>
         </div>
       </article>
@@ -296,7 +323,30 @@ tailwind.config = {
           <li class="pl-4 border-l-2 border-mask">Implemented checkerboard camera calibration to correct lens distortion, with a known-size reference block for precise pixel-to-millimeter scaling.</li>
         </ul>
 
-        <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-6">Media omitted to respect employer IP</p>
+        <div class="spec-label mt-7 mb-3">Build Sequence</div>
+        <div class="grid sm:grid-cols-3 gap-x-4 gap-y-6">
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">01</span><span class="step-phase">Optics &amp; CAD</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 0)">
+              <img src="assets/aoi-camera-housing-cad.png" alt="3D CAD of the AOI enclosure with camera and ring light mount">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Camera housing &amp; ring light</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">02</span><span class="step-phase">Electronics</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 1)">
+              <img src="assets/aoi-pcb-render.png" alt="KiCad render of the AOI trigger PCB with status LEDs">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">ToF trigger board in KiCad</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">03</span><span class="step-phase">Software</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 2)">
+              <img src="assets/aoi-metrology-app.png" alt="Hammond Enclosure Metrology desktop app for hole measurement and verification">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Metrology &amp; measurement UI</p>
+          </div>
+        </div>
       </article>
 
       <!-- ======== 2D PLOTTER ======== -->
@@ -326,19 +376,24 @@ tailwind.config = {
           <li class="pl-4 border-l-2 border-mask">Programmed a manual "free draw" state allowing full x-y movement and pen actuation via a remote controller.</li>
         </ul>
 
-        <div class="grid sm:grid-cols-2 gap-4 mt-7">
-          <div>
-            <button type="button" class="gallery-thumb gallery-thumb-video w-full" onclick="openLightbox('plotter', 0)">
+        <div class="spec-label mt-7 mb-3">Build Sequence</div>
+        <div class="grid sm:grid-cols-2 gap-x-4 gap-y-6">
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">01</span><span class="step-phase">Mechanical Build</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('plotter', 0)">
+              <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry">
+            </button>
+            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Gantry &amp; paper feed taking shape</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">02</span><span class="step-phase">Result</span></div>
+            <button type="button" class="gallery-thumb gallery-thumb-video w-full" onclick="openLightbox('plotter', 1)">
               <img src="assets/plotter-poster.jpg" alt="VEX IQ plotter demo — cue card scan and shape routines">
               <span class="play-badge" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M8 5v14l11-7z"/></svg>
-              </span>            </button>
+              </span>
+            </button>
             <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Demo · cue card scan &amp; shape routines</p>
-          </div>
-          <div>
-            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('plotter', 1)">
-              <img src="assets/plotter-build.jpg" alt="In-progress build of the VEX IQ plotter showing the drive base, gear train, and rack-and-pinion gantry">            </button>
-            <p class="font-mono text-[0.68rem] tracking-wider uppercase text-ink/50 mt-2">Build in progress · gantry &amp; paper feed</p>
           </div>
         </div>
       </article>
@@ -430,16 +485,21 @@ tailwind.config = {
 <script>
   const galleries = {
     blinkrite: [
-      { src: 'assets/blinkrite-lightbar-render.png', caption: 'CAD render · light bar assembly' },
-      { src: 'assets/blinkrite-lamp-frame.png', caption: 'Lamp frame' },
-      { src: 'assets/blinkrite-breadboard.png', caption: 'Breadboard prototype' },
-      { src: 'assets/blinkrite-pcb-render.png', caption: 'KiCad PCB render' },
-      { src: 'assets/blinkrite-pcb-halfway.png', caption: 'PCB assembly, in progress' },
-      { type: 'video', src: 'assets/blinkrite-demo.mp4', poster: 'assets/blinkrite-demo-poster.jpg', caption: 'Live blink-rate detection & eye-landmark tracking' },
+      { type: 'video', src: 'assets/blinkrite-demo.mp4', poster: 'assets/blinkrite-demo-poster.jpg', caption: '01 · Detection — ML blink tracking, running live' },
+      { src: 'assets/blinkrite-breadboard.png', caption: '02 · Proof of concept — first working circuit' },
+      { src: 'assets/blinkrite-lightbar-render.png', caption: '03 · CAD design — light bar assembly & mount' },
+      { src: 'assets/blinkrite-lamp-frame.png', caption: '04 · Fabrication — 3D-printed lamp frame' },
+      { src: 'assets/blinkrite-pcb-render.png', caption: '05 · PCB design — custom board in KiCad' },
+      { src: 'assets/blinkrite-pcb-halfway.png', caption: '06 · Assembly — PCB build in progress' },
+    ],
+    aoi: [
+      { src: 'assets/aoi-camera-housing-cad.png', caption: '01 · Optics & CAD — camera housing & ring light' },
+      { src: 'assets/aoi-pcb-render.png', caption: '02 · Electronics — ToF trigger board in KiCad' },
+      { src: 'assets/aoi-metrology-app.png', caption: '03 · Software — metrology & measurement UI' },
     ],
     plotter: [
-      { type: 'video', src: 'assets/plotter-demo.mp4', poster: 'assets/plotter-poster.jpg', caption: 'Demo · cue card scan & shape routines', rate: 2 },
-      { src: 'assets/plotter-build.jpg', caption: 'Build in progress · gantry & paper feed' },
+      { src: 'assets/plotter-build.jpg', caption: '01 · Mechanical build — gantry & paper feed' },
+      { type: 'video', src: 'assets/plotter-demo.mp4', poster: 'assets/plotter-poster.jpg', caption: '02 · Result — cue card scan & shape routines', rate: 2 },
     ],
   };
   let currentGallery = null;
