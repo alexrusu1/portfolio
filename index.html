@@ -6,7 +6,14 @@
 <title>Alexandru Rusu · Mechatronics Engineering</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
 <script src="https://cdn.tailwindcss.com"></script>
-<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script>
@@ -102,10 +109,40 @@ tailwind.config = {
   #lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(23,27,25,0.96); display: flex; align-items: center; justify-content: center; }
   #lightbox[hidden] { display: none; }
   #lightbox img, #lightbox video { max-width: min(90vw, 1100px); max-height: 78vh; object-fit: contain; border: 1px solid #3a3f3c; background: #0E0F0E; }
-  #lightbox model-viewer {
-    width: min(90vw, 1100px); height: 78vh; border: 1px solid #3a3f3c; background: #0E0F0E;
-    --poster-color: #0E0F0E;
+  #lightbox #lightbox-model {
+    width: min(90vw, 1100px); height: 74vh; border: 1px solid #3a3f3c; background: #0E0F0E;
+    background-size: contain; background-position: center; background-repeat: no-repeat;
+    position: relative; touch-action: none;
   }
+  #lightbox #lightbox-model canvas { display: block; width: 100%; height: 100%; }
+
+  /* Exploded-view slider — drafting style */
+  #explode-control {
+    display: flex; align-items: center; gap: 14px; width: min(90vw, 1100px);
+    padding: 2px 2px 0;
+  }
+  #explode-control[hidden] { display: none; }   /* ID selector above beats UA [hidden]; restore it */
+  #explode-control .explode-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #5FBF9B; white-space: nowrap; font-weight: 600;
+  }
+  #explode-control .explode-readout {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em;
+    color: rgba(233,236,234,0.55); white-space: nowrap; min-width: 3.2em; text-align: right;
+  }
+  #explode-slider {
+    -webkit-appearance: none; appearance: none; flex: 1; height: 2px; background: #3a3f3c;
+    cursor: pointer; outline-offset: 4px;
+  }
+  #explode-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 15px; height: 15px; border-radius: 999px;
+    background: #0E6B4A; border: 2px solid #E9ECEA; transition: background 0.15s ease;
+  }
+  #explode-slider::-webkit-slider-thumb:hover { background: #3BB98A; }
+  #explode-slider::-moz-range-thumb {
+    width: 13px; height: 13px; border-radius: 999px; background: #0E6B4A; border: 2px solid #E9ECEA;
+  }
+  #explode-slider::-moz-range-track { height: 2px; background: #3a3f3c; }
   #lightbox .lightbox-caption { color: #E9ECEA; }
   #lightbox .lightbox-arrow, #lightbox .lightbox-close {
     color: #E9ECEA; border: 1px solid rgba(233,236,234,0.35); background: rgba(255,255,255,0.04);
@@ -280,9 +317,9 @@ tailwind.config = {
             <div class="step-head"><span class="step-num">03</span><span class="step-phase">CAD Design</span></div>
             <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
               <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">
-              <span class="model-badge" aria-hidden="true">3D</span>
+              <span class="model-badge" aria-hidden="true">3D · Exploded</span>
             </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Light bar assembly &amp; mount</p>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Light bar assembly · explodable</p>
           </div>
           <div class="build-step">
             <div class="step-head"><span class="step-num">04</span><span class="step-phase">Fabrication</span></div>
@@ -344,13 +381,15 @@ tailwind.config = {
             <div class="step-head"><span class="step-num">01</span><span class="step-phase">Optics &amp; CAD</span></div>
             <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 0)">
               <img src="assets/aoi-camera-housing-cad.png" alt="3D CAD of the AOI enclosure with camera and ring light mount">
+              <span class="model-badge" aria-hidden="true">3D · Exploded</span>
             </button>
-            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Camera housing &amp; ring light</p>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Camera assembly · explodable</p>
           </div>
           <div class="build-step">
             <div class="step-head"><span class="step-num">02</span><span class="step-phase">Electronics</span></div>
             <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 1)">
               <img src="assets/aoi-pcb-render.png" alt="KiCad render of the AOI trigger PCB with status LEDs">
+              <span class="model-badge" aria-hidden="true">3D</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">ToF trigger board in KiCad</p>
           </div>
@@ -490,7 +529,12 @@ tailwind.config = {
     <video id="lightbox-video" controls hidden>
       <source src="" type="video/mp4">
     </video>
-    <model-viewer id="lightbox-model" camera-controls auto-rotate auto-rotate-delay="1500" shadow-intensity="1" exposure="0.9" hidden></model-viewer>
+    <div id="lightbox-model" hidden></div>
+    <div id="explode-control" hidden>
+      <span class="explode-label">Exploded view</span>
+      <input id="explode-slider" type="range" min="0" max="100" value="0" step="1" aria-label="Explode assembly">
+      <span class="explode-readout" id="explode-readout">0%</span>
+    </div>
     <div class="lightbox-caption font-mono text-xs tracking-wider uppercase text-center">
       <span id="lightbox-caption-text"></span>
       <span id="lightbox-counter" class="text-silk/50 ml-2"></span>
@@ -503,14 +547,27 @@ tailwind.config = {
     blinkrite: [
       { type: 'video', src: 'assets/blinkrite-demo.mp4', poster: 'assets/blinkrite-demo-poster.jpg', caption: '01 · Detection — ML blink tracking, running live' },
       { src: 'assets/blinkrite-breadboard.png', caption: '02 · Proof of concept — first working circuit' },
-      { type: 'model', src: 'assets/blinkrite-lightbar.glb', poster: 'assets/blinkrite-lightbar-render.png', caption: '03 · CAD design — light bar assembly · drag to rotate' },
+      { type: 'model', src: 'assets/blinkrite-lightbar.glb', poster: 'assets/blinkrite-lightbar-render.png', explode: true, explodeRoot: 'Assembly', zoom: 1.15, explodeScale: 0.5, caption: '03 · CAD design — light bar assembly · drag to rotate · slide to explode' },
       { src: 'assets/blinkrite-lamp-frame.png', caption: '04 · Fabrication — 3D-printed lamp frame' },
       { type: 'model', src: 'assets/blinkrite-pcb.glb', poster: 'assets/blinkrite-pcb-render.png', caption: '05 · PCB design — custom board in KiCad · drag to rotate' },
       { src: 'assets/blinkrite-pcb-halfway.png', caption: '06 · Assembly — PCB build in progress' },
     ],
     aoi: [
-      { src: 'assets/aoi-camera-housing-cad.png', caption: '01 · Optics & CAD — camera housing & ring light' },
-      { src: 'assets/aoi-pcb-render.png', caption: '02 · Electronics — ToF trigger board in KiCad' },
+      { type: 'model', src: 'assets/aoi-camera-assembly.glb', poster: 'assets/aoi-camera-housing-cad.png', explode: true,
+        rotX: Math.PI / 2,            // orient ring light upward, matching the thumbnail
+        view: [0.85, 0.72, 1.0],      // camera direction — isometric top view like the thumbnail
+        zoom: 2.05,                   // pull back a little so a full explode stays in frame
+        explodeMap: {                 // per-part explode: internals up/down (Z), enclosure to the sides + fade in
+          'Ring_Light1':        { dir: [0, 0, -1.45] },
+          'NEW_Camera_Cover1':  { dir: [0, 0, -0.7] },
+          'PCB2':               { dir: [0, 0,  0.9] },
+          '1593N_Top1':         { dir: [ 1.3, 0, 0], fade: true },
+          '1593N_Bottom1':      { dir: [-1.3, 0, 0], fade: true },
+          '1593NL_FPanel1':     { dir: [0,  1.3, 0], fade: true },
+          '1593NL_Back_FPanel1':{ dir: [0, -1.3, 0], fade: true },
+        },
+        caption: '01 · Optics & CAD — camera assembly · drag to rotate · slide to explode' },
+      { type: 'model', src: 'assets/aoi-pcb.glb', poster: 'assets/aoi-pcb-render.png', caption: '02 · Electronics — ToF trigger board · drag to rotate' },
       { src: 'assets/aoi-metrology-app.png', caption: '03 · Software — metrology & measurement UI' },
     ],
     plotter: [
@@ -528,11 +585,15 @@ tailwind.config = {
     const videoEl = document.getElementById('lightbox-video');
     const modelEl = document.getElementById('lightbox-model');
 
+    const explodeEl = document.getElementById('explode-control');
+
     videoEl.pause();
     imgEl.hidden = true;
     videoEl.hidden = true;
     modelEl.hidden = true;
+    explodeEl.hidden = true;
     if (item.type === 'video') {
+      if (window.threeViewer) window.threeViewer.hide();
       videoEl.querySelector('source').src = item.src;
       videoEl.poster = item.poster || '';
       const rate = item.rate || 1;
@@ -541,10 +602,10 @@ tailwind.config = {
       videoEl.load();
       videoEl.hidden = false;
     } else if (item.type === 'model') {
-      modelEl.src = item.src;
-      modelEl.poster = item.poster || '';
       modelEl.hidden = false;
+      if (window.threeViewer) window.threeViewer.show(item);
     } else {
+      if (window.threeViewer) window.threeViewer.hide();
       imgEl.src = item.src;
       imgEl.alt = item.caption;
       imgEl.hidden = false;
@@ -567,6 +628,7 @@ tailwind.config = {
 
   function closeLightbox() {
     document.getElementById('lightbox-video').pause();
+    if (window.threeViewer) window.threeViewer.hide();
     document.getElementById('lightbox').hidden = true;
     document.body.style.overflow = '';
   }
@@ -583,9 +645,211 @@ tailwind.config = {
     const lb = document.getElementById('lightbox');
     if (lb.hidden) return;
     if (e.key === 'Escape') closeLightbox();
+    // Don't hijack arrow keys while dragging the explode slider
+    if (document.activeElement === document.getElementById('explode-slider')) return;
     if (e.key === 'ArrowLeft') navLightbox(-1);
     if (e.key === 'ArrowRight') navLightbox(1);
   });
+</script>
+
+<!-- ============ 3D VIEWER (Three.js) ============ -->
+<script type="module">
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+  import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+  const container = document.getElementById('lightbox-model');
+  const control   = document.getElementById('explode-control');
+  const slider    = document.getElementById('explode-slider');
+  const readout   = document.getElementById('explode-readout');
+  const loader    = new GLTFLoader();
+
+  const EXPLODE_MAX = 0.7;   // furthest travel, as a fraction of the model's size
+
+  let renderer, scene, camera, controls, currentRoot = null;
+  let explodeParts = [];
+  let explodeScale = 1;      // per-model multiplier on explode travel
+  let rafId = null;
+  let loadToken = 0;
+
+  function init() {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    scene = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+    camera = new THREE.PerspectiveCamera(45, 1, 0.01, 2000);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotateSpeed = 1.1;
+    controls.addEventListener('start', () => { controls.autoRotate = false; });
+
+    const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(4, 6, 5);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.5); fill.position.set(-5, 2, -4);
+    scene.add(key, fill, new THREE.HemisphereLight(0xffffff, 0x2b2f2d, 0.5));
+
+    new ResizeObserver(resize).observe(container);
+    slider.addEventListener('input', () => {
+      const t = slider.value / 100;
+      applyExplode(t);
+      readout.textContent = Math.round(t * 100) + '%';
+    });
+  }
+
+  function resize() {
+    if (!renderer) return;
+    const w = container.clientWidth, h = container.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+
+  function disposeObject(obj) {
+    obj.traverse((o) => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) {
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        for (const m of mats) {
+          for (const k in m) { const v = m[k]; if (v && v.isTexture) v.dispose(); }
+          m.dispose();
+        }
+      }
+    });
+  }
+
+  function frame(obj, viewDir, zoom) {
+    const box = new THREE.Box3().setFromObject(obj);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z) || 1;
+
+    controls.target.copy(center);
+    const dist = (maxDim / 2) / Math.tan((camera.fov * Math.PI / 180) / 2) * (zoom || 1.7);
+    const dir = Array.isArray(viewDir)
+      ? new THREE.Vector3(viewDir[0], viewDir[1], viewDir[2])
+      : new THREE.Vector3(0.9, 0.55, 1);
+    camera.position.copy(center).add(dir.normalize().multiplyScalar(dist));
+    camera.near = maxDim / 100;
+    camera.far  = maxDim * 100;
+    camera.updateProjectionMatrix();
+    controls.update();
+    return { center, maxDim };
+  }
+
+  // Make a part's materials fade-capable, and remember them so opacity can be driven.
+  function fadeMaterials(part) {
+    const mats = [];
+    part.traverse((o) => {
+      if (!o.material) return;
+      const list = Array.isArray(o.material) ? o.material : [o.material];
+      for (const m of list) { m.transparent = true; m.depthWrite = false; mats.push(m); }
+    });
+    return mats;
+  }
+
+  // Build the explode plan. With an explodeMap, directions are authored in the
+  // model's local space (internals up/down, enclosure to the sides + fade in).
+  // Otherwise fall back to a radial explode outward from the assembly centre.
+  function setupExplode(item, center, maxDim) {
+    explodeParts = [];
+    explodeScale = item.explodeScale || 1;
+    if (!item.explode) { control.hidden = true; return; }
+
+    if (item.explodeMap) {
+      for (const part of currentRoot.children) {
+        const cfg = item.explodeMap[part.name];
+        if (!cfg) continue;
+        const dir = new THREE.Vector3(cfg.dir[0], cfg.dir[1], cfg.dir[2]);
+        const mats = cfg.fade ? fadeMaterials(part) : null;
+        explodeParts.push({ obj: part, basePos: part.position.clone(), dir, dist: maxDim, mats });
+      }
+    } else {
+      let host = currentRoot;
+      if (item.explodeRoot) host = currentRoot.getObjectByName(item.explodeRoot) || currentRoot;
+      const invQuat = new THREE.Quaternion();
+      const scale = new THREE.Vector3();
+      for (const part of host.children) {
+        const box = new THREE.Box3().setFromObject(part);
+        if (box.isEmpty()) continue;               // skip cameras / empty helpers
+        const pc = box.getCenter(new THREE.Vector3());
+        const dir = pc.sub(center);
+        if (dir.lengthSq() < 1e-8) dir.set(0, 1, 0);
+        dir.normalize();
+        part.parent.getWorldQuaternion(invQuat).invert();
+        part.parent.getWorldScale(scale);
+        const localDir = dir.applyQuaternion(invQuat).divide(scale); // world dir -> parent-local
+        explodeParts.push({ obj: part, basePos: part.position.clone(), dir: localDir, dist: maxDim, mats: null });
+      }
+    }
+
+    slider.value = 0;
+    readout.textContent = '0%';
+    applyExplode(0);
+    control.hidden = explodeParts.length < 2;   // nothing meaningful to explode
+  }
+
+  function applyExplode(t) {
+    const amt = t * EXPLODE_MAX * explodeScale;
+    for (const e of explodeParts) {
+      e.obj.position.copy(e.basePos).addScaledVector(e.dir, e.dist * amt);
+      if (e.mats) {                               // enclosure: ~50% at rest, firms up on explode
+        const op = 0.5 + Math.min(1, t * 1.4) * 0.32;
+        e.obj.visible = true;
+        for (const m of e.mats) m.opacity = op;
+      }
+    }
+  }
+
+  function loop() {
+    rafId = requestAnimationFrame(loop);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  async function show(item) {
+    if (!renderer) init();
+    const token = ++loadToken;
+
+    if (currentRoot) { scene.remove(currentRoot); disposeObject(currentRoot); currentRoot = null; }
+    control.hidden = true;
+    container.style.backgroundImage = item.poster ? `url("${item.poster}")` : 'none';
+
+    let gltf;
+    try {
+      gltf = await loader.loadAsync(item.src);
+    } catch (err) {
+      console.error('Failed to load model', item.src, err);
+      return;
+    }
+    if (token !== loadToken) { disposeObject(gltf.scene); return; }  // superseded
+
+    currentRoot = gltf.scene;
+    if (typeof item.rotX === 'number') currentRoot.rotation.x = item.rotX;  // orient to match thumbnail
+    currentRoot.updateMatrixWorld(true);
+    scene.add(currentRoot);
+    container.style.backgroundImage = 'none';
+
+    const { center, maxDim } = frame(currentRoot, item.view, item.zoom);
+    setupExplode(item, center, maxDim);
+
+    controls.autoRotate = true;
+    resize();
+    if (!rafId) loop();
+  }
+
+  function hide() {
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    if (renderer) controls.autoRotate = false;
+  }
+
+  window.threeViewer = { show, hide };
 </script>
 
 </body>
