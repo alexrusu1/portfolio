@@ -6,6 +6,7 @@
 <title>Alexandru Rusu · Mechatronics Engineering</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
 <script src="https://cdn.tailwindcss.com"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script>
@@ -74,6 +75,14 @@ tailwind.config = {
     border: 1px solid rgba(233,236,234,0.5); transition: background 0.25s ease;
   }
   .gallery-thumb-video:hover .play-badge { background: #0E6B4A; border-color: #0E6B4A; }
+  .model-badge {
+    position: absolute; top: 8px; left: 8px; z-index: 1;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: rgba(23,27,25,0.72); color: #E9ECEA; border: 1px solid rgba(233,236,234,0.5);
+    padding: 3px 7px; transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .gallery-thumb:hover .model-badge { background: #0E6B4A; border-color: #0E6B4A; }
 
   /* Build-sequence steps: numbered drafting-style flow through each project's media */
   .step-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
@@ -93,6 +102,10 @@ tailwind.config = {
   #lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(23,27,25,0.96); display: flex; align-items: center; justify-content: center; }
   #lightbox[hidden] { display: none; }
   #lightbox img, #lightbox video { max-width: min(90vw, 1100px); max-height: 78vh; object-fit: contain; border: 1px solid #3a3f3c; background: #0E0F0E; }
+  #lightbox model-viewer {
+    width: min(90vw, 1100px); height: 78vh; border: 1px solid #3a3f3c; background: #0E0F0E;
+    --poster-color: #0E0F0E;
+  }
   #lightbox .lightbox-caption { color: #E9ECEA; }
   #lightbox .lightbox-arrow, #lightbox .lightbox-close {
     color: #E9ECEA; border: 1px solid rgba(233,236,234,0.35); background: rgba(255,255,255,0.04);
@@ -267,6 +280,7 @@ tailwind.config = {
             <div class="step-head"><span class="step-num">03</span><span class="step-phase">CAD Design</span></div>
             <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 2)">
               <img src="assets/blinkrite-lightbar-render.png" alt="CAD render of the BlinkRite light bar assembly and mount">
+              <span class="model-badge" aria-hidden="true">3D</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Light bar assembly &amp; mount</p>
           </div>
@@ -281,6 +295,7 @@ tailwind.config = {
             <div class="step-head"><span class="step-num">05</span><span class="step-phase">PCB Design</span></div>
             <button type="button" class="gallery-thumb w-full" onclick="openLightbox('blinkrite', 4)">
               <img src="assets/blinkrite-pcb-render.png" alt="KiCad render of the BlinkRite custom PCB">
+              <span class="model-badge" aria-hidden="true">3D</span>
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Custom board in KiCad</p>
           </div>
@@ -475,6 +490,7 @@ tailwind.config = {
     <video id="lightbox-video" controls hidden>
       <source src="" type="video/mp4">
     </video>
+    <model-viewer id="lightbox-model" camera-controls auto-rotate auto-rotate-delay="1500" shadow-intensity="1" exposure="0.9" hidden></model-viewer>
     <div class="lightbox-caption font-mono text-xs tracking-wider uppercase text-center">
       <span id="lightbox-caption-text"></span>
       <span id="lightbox-counter" class="text-silk/50 ml-2"></span>
@@ -487,9 +503,9 @@ tailwind.config = {
     blinkrite: [
       { type: 'video', src: 'assets/blinkrite-demo.mp4', poster: 'assets/blinkrite-demo-poster.jpg', caption: '01 · Detection — ML blink tracking, running live' },
       { src: 'assets/blinkrite-breadboard.png', caption: '02 · Proof of concept — first working circuit' },
-      { src: 'assets/blinkrite-lightbar-render.png', caption: '03 · CAD design — light bar assembly & mount' },
+      { type: 'model', src: 'assets/blinkrite-lightbar.glb', poster: 'assets/blinkrite-lightbar-render.png', caption: '03 · CAD design — light bar assembly · drag to rotate' },
       { src: 'assets/blinkrite-lamp-frame.png', caption: '04 · Fabrication — 3D-printed lamp frame' },
-      { src: 'assets/blinkrite-pcb-render.png', caption: '05 · PCB design — custom board in KiCad' },
+      { type: 'model', src: 'assets/blinkrite-pcb.glb', poster: 'assets/blinkrite-pcb-render.png', caption: '05 · PCB design — custom board in KiCad · drag to rotate' },
       { src: 'assets/blinkrite-pcb-halfway.png', caption: '06 · Assembly — PCB build in progress' },
     ],
     aoi: [
@@ -510,8 +526,12 @@ tailwind.config = {
     const item = items[currentIndex];
     const imgEl = document.getElementById('lightbox-img');
     const videoEl = document.getElementById('lightbox-video');
+    const modelEl = document.getElementById('lightbox-model');
 
     videoEl.pause();
+    imgEl.hidden = true;
+    videoEl.hidden = true;
+    modelEl.hidden = true;
     if (item.type === 'video') {
       videoEl.querySelector('source').src = item.src;
       videoEl.poster = item.poster || '';
@@ -520,12 +540,14 @@ tailwind.config = {
       videoEl.onplay = () => { videoEl.playbackRate = rate; };
       videoEl.load();
       videoEl.hidden = false;
-      imgEl.hidden = true;
+    } else if (item.type === 'model') {
+      modelEl.src = item.src;
+      modelEl.poster = item.poster || '';
+      modelEl.hidden = false;
     } else {
       imgEl.src = item.src;
       imgEl.alt = item.caption;
       imgEl.hidden = false;
-      videoEl.hidden = true;
     }
 
     document.getElementById('lightbox-caption-text').textContent = item.caption;
