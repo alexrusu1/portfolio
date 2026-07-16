@@ -556,11 +556,20 @@ tailwind.config = {
       { type: 'model', src: 'assets/aoi-camera-assembly.glb', poster: 'assets/aoi-camera-housing-cad.png', explode: true,
         rotX: Math.PI / 2,            // orient ring light upward, matching the thumbnail
         view: [0.85, 0.72, 1.0],      // camera direction — isometric top view like the thumbnail
-        zoom: 2.05,                   // pull back a little so a full explode stays in frame
-        explodeMap: {                 // per-part explode: internals up/down (Z), enclosure to the sides + fade in
-          'Ring_Light1':        { dir: [0, 0, -1.45] },
-          'NEW_Camera_Cover1':  { dir: [0, 0, -0.7] },
-          'PCB2':               { dir: [0, 0,  0.9] },
+        zoom: 2.3,                    // pull back a little so a full explode stays in frame
+        explodeMap: {                 // per-part explode: internals up/down (Z) around the camera, enclosure to the sides + fade in
+          'Ring_Light1':        { dir: [0, 0, -1.7] },
+          'NEW_Camera_Cover1':  { dir: [0, 0, -1.05] },
+          'Small_Spacer1':      { dir: [0, 0, -0.5] },
+          'Small_Spacer2':      { dir: [0, 0, -0.5] },
+          'Small_Spacer3':      { dir: [0, 0, -0.5] },
+          'Small_Spacer4':      { dir: [0, 0, -0.5] },
+          'Camera_Module1':     { dir: [0, 0,  0.0] },   // anchor — the rest of the stack flies around it
+          'Medium_Spacer1':     { dir: [0, 0,  0.62] },
+          'Medium_Spacer2':     { dir: [0, 0,  0.62] },
+          'Medium_Spacer3':     { dir: [0, 0,  0.62] },
+          'Medium_Spacer4':     { dir: [0, 0,  0.62] },
+          'PCB2':               { dir: [0, 0,  1.35] },
           '1593N_Top1':         { dir: [ 1.3, 0, 0], fade: true },
           '1593N_Bottom1':      { dir: [-1.3, 0, 0], fade: true },
           '1593NL_FPanel1':     { dir: [0,  1.3, 0], fade: true },
