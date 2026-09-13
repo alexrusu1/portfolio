@@ -361,6 +361,27 @@ tailwind.config = {
             </button>
             <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Metrology &amp; measurement UI</p>
           </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">04</span><span class="step-phase">Optics</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 3)">
+              <img src="assets/aoi-ring-light-photo.jpg" alt="Ring light with polarizing filter mounted over the camera lens">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Ring light &amp; polarizing filter</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">05</span><span class="step-phase">Electronics</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 4)">
+              <img src="assets/aoi-pcb-photo.jpg" alt="Assembled ESP32 trigger PCB with status LEDs, next to the ring light">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">ToF trigger board, assembled</p>
+          </div>
+          <div class="build-step">
+            <div class="step-head"><span class="step-num">06</span><span class="step-phase">In Use</span></div>
+            <button type="button" class="gallery-thumb w-full" onclick="openLightbox('aoi', 5)">
+              <img src="assets/aoi-system-in-use.jpg" alt="Camera housing mounted above the underlit inspection stage with an enclosure part in place">
+            </button>
+            <p class="font-mono text-[0.65rem] tracking-wider uppercase text-ink/50 mt-2">Full rig, part under inspection</p>
+          </div>
         </div>
       </article>
 
@@ -512,6 +533,9 @@ tailwind.config = {
       { src: 'assets/aoi-camera-housing-cad.png', caption: '01 · Optics & CAD — camera housing & ring light' },
       { src: 'assets/aoi-pcb-render.png', caption: '02 · Electronics — ToF trigger board in KiCad' },
       { src: 'assets/aoi-metrology-app.png', caption: '03 · Software — metrology & measurement UI' },
+      { src: 'assets/aoi-ring-light-photo.jpg', caption: '04 · Optics — ring light & polarizing filter' },
+      { src: 'assets/aoi-pcb-photo.jpg', caption: '05 · Electronics — ToF trigger board, assembled' },
+      { src: 'assets/aoi-system-in-use.jpg', caption: '06 · In use — full rig, part under inspection' },
     ],
     plotter: [
       { src: 'assets/plotter-build.jpg', caption: '01 · Mechanical build — gantry & paper feed' },
