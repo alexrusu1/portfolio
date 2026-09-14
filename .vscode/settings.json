@@ -1,8 +1,10 @@
 {
+    "code-runner.runInTerminal": true,
+    "code-runner.clearPreviousOutput": true,
     "code-runner.executorMap": {
-        "html": "open $fullFileName"
+        "html": "python serve.py"
     },
     "code-runner.executorMapByFileExtension": {
-        ".html": "open $fullFileName"
+        ".html": "python serve.py"
     }
 }
